@@ -4,226 +4,75 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8" />
         <title>WeHelp week1</title>
-        <link rel="stylesheet" type=" text/css" href="style.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        
     </head>
     <body>
-        <div class="headline">
-            <div class="left">台北一日遊</div>
-            <div class="right-web">
-                <div class="item">Item 1</div>
-                <div class="item">Item 2</div>
-                <div class="item">Item 3</div>
-                <div class="item">Item 4</div>
+        <div class="navbar">
+            <div class="headline">
+                <div class="left">台北一日遊</div>
+                <div class="right-web">
+                    <div class="item1">
+                        <div class="item1-text">預定行程</div></div>
+                    <div class="item2">
+                        <div class="item2-text">登入/註冊</div></div>
+
+                </div>
+                
             </div>
-            <div class="right-mobile">
-            <img src="menu-1.svg" width="30" height="30"/>
-        </div>
         </div>
         <div class="welcome">
-            <div class="text">Welcome to MyHome</div>
-            </div>
+            <div class="welcome-image">
+                <div class="slogan">
+                    <div class="sloganbox">
+                        <div class="slogan-title">
+                        輕鬆享受台北一日悠閒
+                        </div>
+                        <div class="slogan-title-2">
+                        探索每個角落，體驗城市的深度旅遊行程
+                        </div>
+                        <div class="searchbar">
+                            <input class="search_input" placeholder="輸入景點名稱查詢">
 
-            <div class="top3">
-                <div class="top3-1">
-                    <img src="" class="photo" id="promotion1Image" />
-                    <div class="top3item">
-                        <div class="top3item-text" id="promotion1">Promotion 1</div>
+                            
+                            <button type="submit" class="search-button">
+                                <div class="button-icon"></div>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="top3-1">
-                    <img src="" class="photo" id="promotion2Image" />
-                    <div class="top3item">
-                        <div class="top3item-text" id="promotion2">Promotion 2</div>
-                    </div>
-                </div>
-                <div class="top3-1">
-                    <img src="" class="photo" id="promotion3Image" />
-                    <div class="top3item">
-                        <div class="top3item-text" id="promotion3">Promotion 3</div>
-                    </div>
-                </div>
-            </div>
+            </div>          
+        </div>
+
+
      <div class="content">
+        <div class="list-bar">
+            <button type="submit" class="left-container">
+                <div class="arrow-left-icon"></div>
+            </button>
+           
+        <div class="container">
 
-        <div class="product">
-            <img src="" class="photo2" id="product1Image"/>
-            <div class="productitem">
-                <div class="productitem-text">Title 1</div>
-            </div>
-        </div>
-       
-        <div class="product">
-            <img src="" class="photo2" id="product2Image"/>
+            <div class="listitemcontainer"></div> 
+        </div>    
+           
+            <button type="submit" class="right-container">
+                <div class="arrow-right-icon"></div>
+            </button>
             
-            <div class="productitem">
-                <div class="productitem-text">Title 2</div>
-            </div>
+        
         </div>
+        <div class="attractions" id="attractions">
 
-       <div class="product">
-        <img src="" class="photo2" id="product3Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 3</div>
-            </div>
-        </div>
-        <div class="product">
-            <img src="" class="photo2" id="product4Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 4</div>
-            </div>
-        </div>
-        <div class="product">
-            <img src="" class="photo2" id="product5Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 5</div>
-            </div>
-        </div>
-        <div class="product">
-            <img src="" class="photo2" id="product6Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 6</div>
-            </div>
-        </div>
 
-        <div class="product">
-            <img src="" class="photo2" id="product7Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 7</div>
-            </div>
-        </div>
-       
-        <div class="product">
-            <img src="" class="photo2" id="product8Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 8</div>
-            </div>
-        </div>
-
-       <div class="product">
-        <img src="" class="photo2" id="product9Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 9</div>
-            </div>
-        </div>
-        <div class="product">
-            <img src="" class="photo2" id="product10Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 10</div>
-            </div>
-        </div>
-        <div class="product">
-            <img src="" class="photo2" id="product11Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 11</div>
-            </div>
-        </div>
-        <div class="product">
-            <img src="" class="photo2" id="product12Image"/>
-            
-            <div class="productitem">
-                <div class="productitem-text">Title 12</div>
-            </div>
         </div>
     </div>
-      
+    <div class="footer">
+        <div class="copyright">COPYRIGHT © 2021 台北一日遊
+        </div>
+    </div>
         
-    <script>
-        fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json")
-            .then(response => response.json())
-            .then(data => {
-                // 更新top3item-text的文字為前三筆資料的stitle
-                const promotionImageIDs = ["promotion1Image", "promotion2Image", "promotion3Image"];
-                const top3Div = document.querySelector(".top3");
-
-                // 清空top3的內容
-                while (top3Div.firstChild) {
-                    top3Div.removeChild(top3Div.firstChild);
-                }
-
-                for (let x = 0; x < promotionImageIDs.length; x++) {
-                    if (x < 3) {
-                        const top3ItemDiv = document.createElement("div");
-                        top3ItemDiv.className = "top3-1";
-
-                        const promotionImage = document.createElement("img");
-                        promotionImage.src = data.result.results[x].file.match(/https:\/\/.*?(?:\.jpg|\.JPG)/)[0];
-                        promotionImage.className = "photo";
-                        promotionImage.id = promotionImageIDs[x];
-                        top3ItemDiv.appendChild(promotionImage);
-
-                        const top3itemDiv = document.createElement("div");
-                        top3itemDiv.className = "top3item";
-
-                        const top3itemText = document.createElement("div");
-                        top3itemText.className = "top3item-text";
-                        top3itemText.textContent = data.result.results[x].stitle;
-                        top3itemDiv.appendChild(top3itemText);
-
-                        top3ItemDiv.appendChild(top3itemDiv);
-
-                        top3Div.appendChild(top3ItemDiv);
-                    }
-                }
-
-                const productImageIds = [
-                    "product1Image",
-                    "product2Image",
-                    "product3Image",
-                    "product4Image",
-                    "product5Image",
-                    "product6Image",
-                    "product7Image",
-                    "product8Image",
-                    "product9Image",
-                    "product10Image",
-                    "product11Image",
-                    "product12Image",
-                ];
-
-                const contentDiv = document.querySelector(".content");
-
-                // 清空content的內容
-                while (contentDiv.firstChild) {
-                    contentDiv.removeChild(contentDiv.firstChild);
-                }
-
-                // 使用for迴圈動態創建並插入12個產品項目 
-                for (let i = 3; i < productImageIds.length + 3; i++) {
-                    if (i < 15) { 
-                        const productDiv = document.createElement("div");
-                        productDiv.className = "product";
-
-                        const productImage = document.createElement("img");
-                        productImage.src = data.result.results[i].file.match(/https:\/\/.*?(?:\.jpg|\.JPG)/)[0];
-                        productImage.className = "photo2";
-                        productImage.id = productImageIds[i - 3]; 
-                        productDiv.appendChild(productImage);
-
-                        const productitemDiv = document.createElement("div");
-                        productitemDiv.className = "productitem";
-
-                        const productitemText = document.createElement("div");
-                        productitemText.className = "productitem-text";
-                        productitemText.textContent = data.result.results[i].stitle; 
-                        productitemDiv.appendChild(productitemText);
-
-                        productDiv.appendChild(productitemDiv);
-
-                        contentDiv.appendChild(productDiv);
-                    }
-                }
-            })
-            .catch(error => console.log("Error fetching data:", error));
-    </script>
+    <script src="{{ url_for('static', filename='javascript.js') }}"></script>
     </body>
 </html>
 
