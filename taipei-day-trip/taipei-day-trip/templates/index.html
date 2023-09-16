@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
+        <title>WeHelp week1</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="headline">
+                <div class="left">台北一日遊</div>
+                <div class="right-web">
+                    <div class="item1">
+                        <div class="item1-text">預定行程</div></div>
+                    <div class="item2">
+                        <div class="item2-text">登入/註冊</div></div>
+
+                </div>
+                
+            </div>
+        </div>
+        <div class="welcome">
+            <div class="welcome-image">
+                <div class="slogan">
+                    <div class="sloganbox">
+                        <div class="slogan-title">
+                        輕鬆享受台北一日悠閒
+                        </div>
+                        <div class="slogan-title-2">
+                        探索每個角落，體驗城市的深度旅遊行程
+                        </div>
+                        <div class="searchbar">
+                            <input class="search_input" placeholder="輸入景點名稱查詢">
+
+                            
+                            <button type="submit" class="search-button">
+                                <div class="button-icon"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+
+
+     <div class="content">
+        <div class="list-bar">
+            <button type="submit" class="left-container">
+                <div class="arrow-left-icon"></div>
+            </button>
+           
+        <div class="container">
+
+            <div class="listitemcontainer"></div> 
+        </div>    
+           
+            <button type="submit" class="right-container">
+                <div class="arrow-right-icon"></div>
+            </button>
+            
+        
+        </div>
+        <div class="attractions" id="attractions">
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <div class="copyright">COPYRIGHT © 2021 台北一日遊
+        </div>
+    </div>
+        
+    <script src="{{ url_for('static', filename='javascript.js') }}"></script>
+    </body>
+</html>
+
