@@ -187,4 +187,4 @@ function renderAttraction(attraction) {
     `;
     return attractionElement;
 }
-
+//
