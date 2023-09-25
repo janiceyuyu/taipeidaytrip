@@ -176,15 +176,19 @@ function renderAttraction(attraction) {
     const attractionElement = document.createElement('div');
     attractionElement.classList.add('attraction');
     attractionElement.innerHTML = `
-        <div class="attraction-image">
-            <img src="${attraction.images[0]}" alt="${attraction.name}">
-        </div>
-        <div class="name">${attraction.name}</div>
-        <div class="details">
-            <div class="detail-mrt">${attraction.mrt}</div>
-            <div class="detail-cat">${attraction.category}</div>
-        </div>
+        <a href="/attraction/${attraction.id}">
+            <div class="attraction-image">
+                <img src="${attraction.images[0]}" alt="${attraction.name}">
+            </div>
+            <div class="name">${attraction.name}</div>
+            <div class="details">
+                <div class="detail-mrt">${attraction.mrt}</div>
+                <div class="detail-cat">${attraction.category}</div>
+            </div>
+        </a>
     `;
     return attractionElement;
 }
-//
+
+
+
