@@ -340,7 +340,10 @@ body{
         padding-bottom: 40px;
        
     }
+    a {
+        text-decoration: none; /* 移除下底線效果 */
 
+      }
 
     .attraction {
         display: flex;
@@ -783,6 +786,12 @@ body{
             padding-bottom: 40px;
            
         }
+
+        a {
+            text-decoration: none; /* 移除下底線效果 */
+            width:100%
+    
+          }
         .attraction {
             display: flex;
             margin: 15px;
@@ -833,7 +842,6 @@ body{
         .details {
             padding: 10px;
             display: flex;
-            width: 100%;
             height: 25px;
     
         }
@@ -993,7 +1001,7 @@ body{
             height: 169px;
             width: 100%;
             min-width: 340px;
-            padding: 20px;
+            padding: 10px;
     
         }
         .sloganbox{
@@ -1216,6 +1224,11 @@ body{
 
            
         }
+
+        a {
+            text-decoration: none; /* 移除下底線效果 */
+    
+          }
         .attraction {
             display: flex;
             margin-top: 15px;
