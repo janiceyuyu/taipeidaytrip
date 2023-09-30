@@ -1,0 +1,220 @@
+body{
+
+    font-family: 'Noto Sans TC';
+    margin: 0;
+    justify-content: center;
+
+}
+
+
+
+
+.dialogmask{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+.signupbox{
+    width: 340px;
+    height: min-content;
+    z-index: 10001;
+    margin-top: 80px;
+    opacity: 1;
+    box-shadow: 0px 4px 60px 0px #AAA;
+    position: relative;
+    border-radius: 6px; 
+
+}
+.signinbox{
+    width: 340px;
+    height: min-content;
+    z-index: 10001;
+    margin-top: 80px;
+    opacity: 1;
+    box-shadow: 0px 4px 60px 0px #AAA;
+    position: relative;
+    border-radius: 6px; 
+
+}
+.decoratorbar{
+    width: 340px;
+    height: 10px;
+    border-top-left-radius: 6px; 
+    border-top-right-radius: 6px; 
+    background: linear-gradient(270deg, #378 0%, #6AB 100%);
+
+}
+.closeicon{
+    background-image: url('/static/icon_close.png');
+    width: 16px;
+    height: 16px;
+    margin-right: 17px;
+    margin-top: 17px;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+
+}
+
+.closeicon_2{
+    background-image: url('/static/icon_close.png');
+    width: 16px;
+    height: 16px;
+    margin-right: 17px;
+    margin-top: 17px;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+
+}
+.signup{
+    width: 340px;
+    height: min-content;
+    border-bottom-left-radius: 6px; 
+    border-bottom-right-radius: 6px; 
+    background-color: #ffffff;
+   
+
+    
+}
+.signin{
+    width: 340px;
+    height: min-content;
+    border-bottom-left-radius: 6px; 
+    border-bottom-right-radius: 6px; 
+    background-color: #ffffff;
+   
+
+    
+}
+.dialogtitle{
+    width: 310px;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Noto Sans TC;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    color:  #666;
+    text-align: center;
+    padding: 15px;
+
+}
+.signupsignin_input{
+    width: 295px;
+    height: 45px;
+    border: 1px solid #CCCCCC; 
+    color:#757575;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    padding:0px 0px 0px 15px;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px;
+}
+.signupsignin_enter{
+    width: 310px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    background-color: #448899;
+    border: 0px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: Noto Sans TC;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; 
+    padding: 0px;
+    cursor: pointer;
+
+}
+.remindmsg{
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+
+    color: #b3193d;
+    
+
+
+}
+.dialog_text_haveaccount{
+    width: 310px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px;
+    color:#666;
+    padding-bottom: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.dialog_text_noaccount{
+    width: 310px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: Noto Sans TC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 13.3px;
+    color:#666;
+    padding-bottom: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+
+
+
+}
+
+.nav-logout-button{
+    width:71px;
+    height: 14px;
+    font-size: 16px;
+    line-height: 13.3px;
+    font-style: normal;
+    font-weight: 500;
+    color: #666666;
+    justify-content: center;
+    align-items: center;
+    display:flex;
+    cursor: pointer;
+}
