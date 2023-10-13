@@ -211,6 +211,7 @@ body{
         height: 30px;
         position: absolute;
         margin-left: 670px;
+        cursor: pointer;
         
     }
 
@@ -595,7 +596,7 @@ body{
             height: 30px;
             position: absolute;
             margin-left: 90%;
-            
+            cursor: pointer;
         }
     
     
@@ -984,6 +985,7 @@ body{
             position: absolute;
             right: 0; 
             bottom: 0; 
+            cursor: pointer;
 
             
         }
