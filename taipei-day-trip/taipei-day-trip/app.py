@@ -4,7 +4,10 @@ app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 
 import mysql.connector
-
+import jwt
+from datetime import datetime, timedelta
+import os
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "default_secret_key")
 
 
 # Pages
@@ -198,6 +201,168 @@ def apimrts():
     except mysql.connector.Error as err:
         print("Error connecting to the database:", err)
         return json.dumps({"error": True,"message": "伺服器內部錯誤"}, ensure_ascii=False), 500
+
+#API註冊一個新的會員-----------------------------------------------
+@app.route("/api/user", methods=["POST"])
+def apiuser():
+    signUpData = request.get_json()
+    name=signUpData["name"]
+    email = signUpData["email"]
+    password = signUpData["password"]
+    
+ 
+    try:
+        # 連線資料庫
+        con = mysql.connector.connect(  
+            user="root",
+            password="12345678",
+            host="localhost",
+            database="taipeidaytrip",
+            charset="utf8mb4"
+        )
+        cursor = con.cursor()
+        
+        check_email = "SELECT email FROM member WHERE email = %s"
+        cursor.execute(check_email, (email,))
+        existing_email = cursor.fetchone()
+        
+
+        if existing_email:
+            cursor.close()
+            con.close()
+            return json.dumps({"error": True, "message": "註冊失敗，重複的 Email"}, ensure_ascii=False), 404
+
+        else:
+            sql = "INSERT INTO member (name, email, password) VALUES (%s, %s, %s)"
+            values = (name, email, password)
+            cursor.execute(sql, values)
+            con.commit()
+            
+           # 關閉游標和連線
+            cursor.close()
+            con.close()
+        
+            return json.dumps({"ok":True}, ensure_ascii=False), 200
+            
+        
+    except mysql.connector.Error as err:
+        print("Error connecting to the database:", err)
+        return json.dumps({"error": True, "message": "伺服器內部錯誤"}, ensure_ascii=False), 500
+
+#API取得當前登入的會員資訊----------------------------------------------- 
+@app.route("/api/user/auth")
+def authorization():
+    try:
+        authorization_header = request.headers.get('Authorization')
+
+        if authorization_header is None:
+            return "Authorization header is missing", 401
+
+        parts = authorization_header.split()
+        token = parts[1]
+
+        decoded_token = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+
+        expiredTime = decoded_token["exp"]
+        currentTime = int(datetime.utcnow().timestamp())
+
+        user_id = decoded_token['id']
+        email = decoded_token['email']
+        name = decoded_token['name']
+
+    except jwt.ExpiredSignatureError:
+        return json.dumps({'error': True, 'message': '憑證已過期'}, ensure_ascii=False), 401
+    except jwt.InvalidTokenError:
+        return json.dumps({'error': True, 'message': '無效憑證'}, ensure_ascii=False), 401
+    except Exception as e:
+        return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 500
+
+    try:
+        # 連接資料庫
+        con = mysql.connector.connect(
+            user="root",
+            password="12345678",
+            host="localhost",
+            database="taipeidaytrip",
+            charset="utf8mb4"
+        )
+        cursor = con.cursor()
+
+        cursor.execute("SELECT id, email, name from member WHERE id = %s and email = %s and name = %s", (user_id, email, name))
+        checkmember = cursor.fetchone()
+
+        cursor.close()
+        con.close()
+
+        if checkmember and expiredTime > currentTime:
+            return json.dumps({'id': user_id, 'name': name, 'email': email}, ensure_ascii=False), 200
+        else:
+            return json.dumps({'error': None, 'message': '信箱或密碼輸入錯誤'}, ensure_ascii=False), 404
+
+    except mysql.connector.Error as err:
+        return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 500
+
+
+
+
+
+
+
+#API登入會員帳號-----------------------------------------------  
+@app.route("/api/user/auth", methods = ["PUT"])
+def signin():
+    signInData = request.get_json()
+    email = signInData["email"]
+    password = signInData["password"]
+    
+    try:
+        # 連接資料庫
+        con = mysql.connector.connect(
+            user="root",
+            password="12345678",
+            host="localhost",
+            database="taipeidaytrip",
+            charset="utf8mb4"
+        )
+        cursor = con.cursor()
+
+        # 執行SQL指令，查詢資料庫
+        cursor.execute("SELECT id, email, password, name from member WHERE email = %s and password = %s", (email, password))
+        # 將查詢到的資料放在checkmember
+        checkmember = cursor.fetchone()
+        print(checkmember)
+
+        if checkmember:
+            member_data = {
+				"id": checkmember[0],
+				"email": checkmember[1],
+				"name": checkmember[3],
+				 "exp": datetime.utcnow() + timedelta(days=7)
+            }
+
+            token = jwt.encode(member_data, SECRET_KEY, algorithm="HS256")
+            response_success = json.dumps({'token': token}, ensure_ascii=False) # 檢查結果若確定OK，則提供token給前端
+           
+            
+            # 關閉游標和連線
+            cursor.close()
+            con.close()
+            
+            return response_success, 200
+
+        else:
+            return json.dumps({'error': True, 'message': '信箱或密碼輸入錯誤'}, ensure_ascii=False), 404
+
+    except mysql.connector.Error as err:
+        print("Error connecting to the database:", err)
+        return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 500
+        
+        
+ 
+
+
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)

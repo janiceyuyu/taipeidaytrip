@@ -6,8 +6,9 @@ let nextPage = 0
 let src = `${attractionUrl}?page=${nextPage}&keyword=${keyword}`
 fetching = false
 
+getData()
 
-window.onload = function getData() {
+function getData() {
     fetch(mrturl)
     .then(response => response.json())
     .then(data => {
@@ -189,6 +190,5 @@ function renderAttraction(attraction) {
     `;
     return attractionElement;
 }
-
 
 
