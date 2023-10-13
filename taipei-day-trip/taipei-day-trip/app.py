@@ -181,7 +181,7 @@ def apimrts():
         
         # 將查詢到的資料存放在mrtslist_1的變數中
         mrtslist_1 = cursor.fetchall()
-        print(mrtslist_1)
+
         # 關閉游標和連線
         cursor.close()
         con.close()
@@ -356,9 +356,211 @@ def signin():
     except mysql.connector.Error as err:
         print("Error connecting to the database:", err)
         return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 500
+
+#API取得尚未確認下單的預定行程 ----------------------------------------
+@app.route("/api/booking")
+def bookingget():
+    try:
+        authorization_header = request.headers.get('Authorization')
+
+        if authorization_header is None:
+            return "Authorization header is missing", 401
+
+        parts = authorization_header.split()
+        token = parts[1]
+        bearer = parts[0]
+    
+        if bearer == "Bearer" and token:
+            decoded_token = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+            
+            expiredTime = decoded_token["exp"]
+            currentTime = int(datetime.utcnow().timestamp())
+
+            id = decoded_token['id']
+            email = decoded_token['email']
+            name = decoded_token['name']
+
+    except jwt.ExpiredSignatureError:
+            return json.dumps({'error': True, 'message': '憑證已過期'}, ensure_ascii=False), 401
+    except jwt.InvalidTokenError:
+            return json.dumps({'error': True, 'message': '無效憑證'}, ensure_ascii=False), 401
+    except Exception as e:
+            return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 501
+
+
+
+    try:
+        # 連線資料庫
+        con = mysql.connector.connect(  
+            user="root",
+            password="12345678",
+            host="localhost",
+            database="taipeidaytrip",
+            charset="utf8mb4",
+            buffered=True
+        )
+        cursor = con.cursor()
         
+       
+        # 執行SQL指令，去資料庫裏面查詢
+        sql_query = "SELECT member.id, member.name, member.email, member.date, member.time, member.price,attractions.id, attractions.name, attractions.address, attractions.images FROM member left JOIN attractions ON member.attractionID = attractions.id WHERE member.id = %s and member.email = %s and member.name = %s"
+        cursor.execute(sql_query, (id, email, name))
         
- 
+        # 將查詢到的資料存放在bookingdata的變數中
+        bookingdata = cursor.fetchone()  
+        print(bookingdata)
+        
+
+        
+        # 關閉游標和連線
+        cursor.close()
+        con.close()    
+
+        if bookingdata and bookingdata[9]:
+            images = json.loads(bookingdata[9])
+            # print("images:", images)
+
+            first_image = images[0]
+             # print("第一張圖片:", first_image)
+
+            booking={
+                "date":bookingdata[3].strftime("%Y-%m-%d"),
+                "time":bookingdata[4],
+                "price":bookingdata[5]
+            }
+            attraction = {
+                "attraction":{
+                "id": bookingdata[6],
+                "name": bookingdata[7],
+                "address": bookingdata[8],
+                "images": first_image  # 使用處理後的圖片URL列表
+            }}
+
+            if bookingdata and expiredTime > currentTime:
+                response_data = {"data": {**attraction, **booking}}
+            return json.dumps(response_data, ensure_ascii=False), 200 
+        elif expiredTime < currentTime:
+            return json.dumps({"error": True, "message": "未登入系統，拒絕存取"}, ensure_ascii=False), 403
+        else:
+            return json.dumps({"data": None}, ensure_ascii=False)
+        
+    except mysql.connector.Error as err:
+        print("Error connecting to the database:", err)
+        return json.dumps({"error": True, "message": "伺服器內部錯誤"}, ensure_ascii=False), 500
+    
+
+#API建立新的預定行程 -------------------------------------------------
+@app.route("/api/booking", methods = ["POST"])
+def bookingpost():
+    bookingpostdata=request.get_json()
+    attractionID=bookingpostdata["attractionID"]
+    date=bookingpostdata["date"]
+    time=bookingpostdata["time"]
+    price=bookingpostdata["price"]
+    
+    
+    try:
+        authorization_header = request.headers.get('Authorization')
+
+        if authorization_header is None:
+            return "Authorization header is missing", 401
+
+        parts = authorization_header.split()
+        token = parts[1]
+
+        decoded_token = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+
+        expiredTime = decoded_token["exp"]
+        currentTime = int(datetime.utcnow().timestamp())
+
+        id = decoded_token['id']
+        email = decoded_token['email']
+        name = decoded_token['name']
+
+    except Exception as e:
+            return json.dumps({'error': True, 'message': '未登入系統，拒絕存取'}, ensure_ascii=False), 403
+
+
+
+    try:
+        # 連線資料庫
+        con = mysql.connector.connect(  
+            user="root",
+            password="12345678",
+            host="localhost",
+            database="taipeidaytrip",
+            charset="utf8mb4",
+            buffered=True
+        )
+        cursor = con.cursor()
+        cursor.execute("SELECT id, email, name, attractionID, date, time, price from member WHERE id = %s and email = %s and name = %s", (id, email, name))
+        existing_user = cursor.fetchone()
+        print(existing_user)
+
+        if existing_user and expiredTime > currentTime:
+            cursor.execute("UPDATE member SET attractionID = %s, date = %s, time = %s, price = %s WHERE id = %s", (attractionID, date, time, price, id))
+			
+            con.commit() #確定執行
+            return json.dumps({"ok":True}, ensure_ascii=False), 200
+        
+
+        else:
+            return json.dumps({"error": True, "message": "未登入系統，拒絕存取"}, ensure_ascii=False), 403
+    except Exception as e:
+            return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 500
+
+
+
+
+#API刪除目前的預定行程 -----------------------------------------------   
+@app.route("/api/booking", methods = ["DELETE"])
+def bookingdelete():
+    try:
+        authorization_header = request.headers.get('Authorization')
+
+        if authorization_header is None:
+            return "Authorization header is missing", 401
+
+        parts = authorization_header.split()
+        token = parts[1]
+
+        decoded_token = jwt.decode(token, SECRET_KEY, algorithms="HS256")
+
+        expiredTime = decoded_token["exp"]
+        currentTime = int(datetime.utcnow().timestamp())
+
+        id = decoded_token['id']
+        email = decoded_token['email']
+        name = decoded_token['name']
+
+    except Exception as e:
+            return json.dumps({'error': True, 'message': '未登入系統，拒絕存取'}, ensure_ascii=False), 403
+    
+    try:
+        # 連線資料庫
+        con = mysql.connector.connect(  
+            user="root",
+            password="12345678",
+            host="localhost",
+            database="taipeidaytrip",
+            charset="utf8mb4",
+            buffered=True
+        )
+        cursor = con.cursor()
+        cursor.execute("SELECT id, email, name, attractionID, date, time, price from member WHERE id = %s and email = %s and name = %s", (id, email, name))
+        existing_user = cursor.fetchone()
+        print(existing_user)
+
+        if existing_user and expiredTime > currentTime:
+            cursor.execute("UPDATE member SET attractionID =NULL, date =NULL, time =NULL, price =NULL WHERE id = %s", (id,))
+            con.commit() #確定執行
+            return json.dumps({"ok":True}, ensure_ascii=False), 200
+        
+
+        else:
+            return json.dumps({"error": True, "message": "未登入系統，拒絕存取"}, ensure_ascii=False), 403
+    except Exception as e:
+            return json.dumps({'error': True, 'message': '伺服器內部錯誤'}, ensure_ascii=False), 500
 
 
 

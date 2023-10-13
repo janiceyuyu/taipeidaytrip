@@ -3,6 +3,8 @@ console.log(id)
 const idurl=`/api/attraction/${id}`;
 console.log(idurl)
 let imagesUrl = []
+let bookingurl= "/api/booking"
+let booking_button=document.getElementById('booking_button')
 
 
 fetch(idurl)
@@ -134,3 +136,61 @@ button2.addEventListener('click', function() {
     price2.style.display = 'block';
     price1.style.display = 'none';
   });
+
+//預訂新的行程
+let priceInt = ""
+let selectedTime=""    
+
+booking_button.addEventListener('click',function(){
+    checklogin({checkBookingSignin: true})
+})
+function addBookingOrder(){
+    let selectDate = document.querySelector('.customDatePicker').value
+    if (selectDate == ""){
+        alert("請選擇日期")
+    }else{ 
+        console.log(selectDate)
+
+    let selectedTime = document.querySelector('input[name="daytime"]:checked').value;  
+    console.log(selectedTime);
+        
+      
+    const button1 = document.querySelector('#price_2000');
+    const button2 = document.querySelector('#price_2500');
+
+
+    let selectedPrice = "";
+
+    if (button1.checked) {
+        selectedPrice =  document.getElementById("2000").textContent
+    } else if (button2.checked) {
+        selectedPrice =  document.getElementById("2500").textContent
+    }
+    const priceMatches = selectedPrice.match(/\d+/);
+
+    if (priceMatches && priceMatches.length > 0) {
+        // 將匹配到的數字轉換為整數
+        priceInt = parseInt(priceMatches[0], 10);
+        console.log("選擇的導覽費用：" + priceInt + " 元");
+    } else {
+        alert("請選擇時間");
+    }
+        
+  
+    let attractionId = id
+    
+    let bookingData = {"attractionID": attractionId, "date": selectDate, "time": selectedTime, "price": priceInt}
+    console.log(bookingData)
+    
+    fetch(bookingurl, {
+        method: 'POST',
+        headers: {'Authorization': `Bearer `+ window.localStorage.getItem("token"), 'Content-Type': 'application/json'},
+        body: JSON.stringify(bookingData)
+        })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        location.href = "/booking"
+    })
+    }
+}

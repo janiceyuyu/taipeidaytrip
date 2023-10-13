@@ -81,6 +81,7 @@ body{
         justify-content: center;
         align-items: center;
         display:flex;
+        cursor: pointer;
     }
 
     .item2-text{
@@ -544,6 +545,7 @@ body{
             justify-content: center;
             align-items: center;
             display:flex;
+            cursor: pointer;
         }
     
         .item2-text{
@@ -980,6 +982,7 @@ body{
             justify-content: center;
             align-items: center;
             display:flex;
+            cursor: pointer;
         }
     
         .item2-text{
