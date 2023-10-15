@@ -86,6 +86,7 @@ body{
         justify-content: center;
         align-items: center;
         display:flex;
+        cursor: pointer;
     }
 
     .item2-text{
@@ -500,6 +501,7 @@ body{
         padding-bottom: 10px;
         padding-left: 20px;
         padding-right: 20px;
+        cursor: pointer;
 
     }
 
@@ -727,6 +729,7 @@ body{
             justify-content: center;
             align-items: center;
             display:flex;
+            cursor: pointer;
         }
     
         .item2-text{
@@ -1133,6 +1136,7 @@ body{
             padding-bottom: 10px;
             padding-left: 20px;
             padding-right: 20px;
+            cursor: pointer;
     
         }
     
@@ -1320,6 +1324,7 @@ body{
             justify-content: center;
             align-items: center;
             display:flex;
+            cursor: pointer;
         }
     
         .item2-text{
@@ -1339,7 +1344,7 @@ body{
         .hr1 {
             border:none;
             top:54px;
-            width: 360px;
+            width: auto;
             height: 1px;
             color:#E8E8E8 ;
             justify-content: center;
@@ -1743,6 +1748,7 @@ body{
             padding-bottom: 10px;
             padding-left: 20px;
             padding-right: 20px;
+            cursor: pointer;
     
         }
     

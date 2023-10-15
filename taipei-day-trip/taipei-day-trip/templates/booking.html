@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
+        <title>台北一日遊</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='booking.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='member.css') }}">
+    </head>
+    <body>
+<!--會員註冊-->
+        
+<div class="dialogmask" id="signupDialog" style="display: none;">
+    <div class="signupbox">
+        <div class="decoratorbar"></div>
+        <span class="closeicon"></span>
+        <div class="signup">
+            <div class="dialogtitle">註冊會員帳號</div>
+            <input class="signupsignin_input" placeholder="輸入姓名" id="signupname">
+            <input class="signupsignin_input" placeholder="輸入電子郵件" id="signupemail">
+            <input class="signupsignin_input" placeholder="輸入密碼" type="password" id="signuppassword">
+            <button class="signupsignin_enter" type="submit" id="signupbutton">註冊新帳號</button>
+            <div class="remindmsg" id="signuperrornote" ></div>
+            <div class="dialog_text_haveaccount">已經有帳號了？點此登入</div>
+        </div>
+    </div>
+</div>
+<!--會員登入-->
+<div class="dialogmask" id="loginDialog" style="display: none;">
+    <div class="signinbox">
+        <div class="decoratorbar"></div>
+        <span class="closeicon_2"></span>
+        <div class="signin">
+            <div class="dialogtitle">登入會員帳號</div>
+            <input class="signupsignin_input" placeholder="輸入電子郵件" id="loginemail">
+            <input class="signupsignin_input" placeholder="輸入密碼" type="password" id="loginpassword">
+            <button class="signupsignin_enter" type="submit" id="loginbutton">登入帳號</button>
+            <div class="remindmsg" id="loginerrornote" ></div>
+            <div class="dialog_text_noaccount">還沒有帳號？點此註冊</div>
+        </div>
+    </div>
+</div>
+
+<!--表頭-->
+        <div class="navbar">
+            <div class="headline">
+                <a href = "/" class="link" >
+                <div class="left">台北一日遊</div>
+                </a>
+                <div class="right-web">
+                    <div class="item1">
+                        <div class="item1-text" id="bookingschedule">預定行程</div></div>
+                    <div class="item2">
+                        <div class="item2-text">登入/註冊</div></div>
+                </div>
+            </div>   
+        </div>
+        <hr class="hr1">    
+
+
+        <div class="content">
+           <div class="headline_hello">
+            <div class="headline_style" id="hello">您好：</div>
+            <div class="headline_style" id="username"></div>
+            <div class="headline_style" id="helloword">，待預訂的行程如下：</div>
+           </div>
+           <div class="section" id="section">
+                <div class="picture" id="bookingpicture"></div>
+                <div class="infor">
+                    <div class="title">
+                        <div class="taipeidaytrip">台北一日遊：</div>
+                        <div class="taipeidaytrip" id="spotname"></div>
+                    </div>
+                    <div class="inforframe">
+                        <div class="inforstyle">日期：</div>
+                        <div class="infor-textstyle" id="date"></div>
+                    </div>
+                    <div class="inforframe">
+                        <div class="inforstyle">時間：</div>
+                        <div class="infor-textstyle" id="time"></div>
+                    </div>
+                    <div class="inforframe">
+                        <div class="inforstyle">費用：</div>
+                        <div class="infor-textstyle" id="cost"></div>
+                        <div class="infor-textstyle">元</div>
+                    </div>
+                    <div class="inforframe">
+                        <div class="inforstyle">地點：</div>
+                        <div class="infor-textstyle" id="address"></div>
+                    </div>
+                    <div class="deleteicon"></div>
+                </div>
+
+           </div>                 
+            <hr class="hr2" id="line2"> 
+
+            <div class="contactform" id="contactform">
+                <div class="contactform_title">您的聯絡資訊</div>
+                <div class="contactframe">
+                    <div class="contactstyle" >聯絡姓名：</div>
+                    <input class="contact_input" id="contactname">
+                </div>
+                <div class="contactframe">
+                    <div class="contactstyle" >聯絡信箱：</div>
+                    <input class="contact_input" id="contactemail">
+                </div>
+                <div class="contactframe">
+                    <div class="contactstyle">手機號碼：</div>
+                    <input class="contact_input" id="contactphone">
+                </div>
+                <div class="rimindnote">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+            </div>
+
+            <hr class="hr2" id="line3"> 
+
+            <div class="payment" id="payment">
+                <div class="contactform_title">信用卡付款資訊</div>
+                <div class="contactframe">
+                    <div class="contactstyle">卡片號碼：</div>
+                    <div class="tpfield" id="card-number"></div>
+                    <!--<input class="contact_input" placeholder="**** **** **** ****" type="password">--> 
+                </div>
+                <div class="contactframe">
+                    <div class="contactstyle">過期時間：</div>
+                    <div class="tpfield" id="card-expiration-date"></div>
+                    <!--<input class="contact_input" placeholder="MM/YY">--> 
+                </div>
+                <div class="contactframe">
+                    <div class="contactstyle" >驗證密碼：</div>
+                    <div class="tpfield" id="card-ccv"></div>
+                    <!--<input class="contact_input" placeholder="CVV">--> 
+                </div>
+
+            </div>
+            <hr class="hr2" id="line4"> 
+            <div class="confirm" id="confirm">
+                <div class="final">
+                    <div class="finalprice">總價：新台幣</div>
+                    <div class="finalcost" id="totalcost"></div>
+                    <div class="finalprice">元</div>
+                </div>
+                <button type="submit" class="confirm-button">確認訂購並付款</button>
+            </div>
+
+        </div>
+       
+
+        
+
+
+
+
+    <div class="footer" id="footer">
+        <div class="copyright">COPYRIGHT © 2021 台北一日遊
+        </div>
+    </div>
+        
+    <script src="{{ url_for('static', filename='attraction.js') }}"></script>
+    <script src="{{ url_for('static', filename='member.js') }}"></script>    
+    <script src="{{ url_for('static', filename='booking.js') }}"></script>    
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.17.0"></script>
+    <script src="{{ url_for('static', filename='tappay.js') }}"></script>    
+</body>
+</html>
+

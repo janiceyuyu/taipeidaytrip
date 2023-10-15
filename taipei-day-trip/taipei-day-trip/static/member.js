@@ -53,7 +53,7 @@ logindialogsignup.addEventListener('click', function() {
 const signupgreenbutton = document.getElementById('signupbutton')
 const signupurl="/api/user"
 
-// signupgreenbutton.disabled = true;
+
 
 signupgreenbutton.addEventListener('click', function() {
     signuperrornote.innerHTML = "";
@@ -141,29 +141,49 @@ logingreenbutton.addEventListener('click', function() {
 });
 
 window.onload = function() {
-    checklogin();
+    checklogin({checkBookingSignin: false});
 }
 
-function checklogin() {
+function checklogin(config={}) {
+    if (config.checkBookingSignin){
+        fetch(loginurl, {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ` + window.localStorage.getItem("token") },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.id){       
+                console.log("有登入，可以訪問booking")
+                addBookingOrder()
+            }else{
+                logindialog.style.display = 'flex'
+            }
+        })
+    }else{
+
     fetch(loginurl, {
         method: 'GET',
         headers: { 'Authorization': `Bearer ` + window.localStorage.getItem("token") },
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        // if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        // }
         return response.json();
     })
     .then(data => {
-        if (data !== null) {
+        if (data.email) {
             logout();
+            username=data.name
+        }else if (data.error && location.pathname == '/booking'){
+            location.href = "/"
+            
+        }else if (data.error && location.pathname == '/thankyou'){
+            location.href = "/"
         }
     })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
-}
+    
+}}
 
 function logout() {
     loginbutton.style.display = "none";
@@ -171,11 +191,31 @@ function logout() {
     logout.classList.add("nav-logout-button");
     logout.textContent = "登出系統";
 
-    logout.addEventListener('click', function() {
-        localStorage.clear();
-        location.reload();
-    });
+    
     loginbuttonbox.appendChild(logout);
+
+    logout.addEventListener('click', function() {
+        logout.innerHTML=""
+        localStorage.clear();
+
+        let currentUrl = location.pathname
+        console.log("currentUrl: ",currentUrl)
+        let bookingurl="/booking"
+        if  (currentUrl == bookingurl){
+            location.href = "/"
+        }else{
+            location.reload();
+        }
+
+
+    });
+
+
+
+    
+
+
+
 }
    
 

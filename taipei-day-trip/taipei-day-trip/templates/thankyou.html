@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
+        <title>台北一日遊</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='booking.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='member.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='thankyou.css') }}">
+    </head>
+    <body>
+<!--會員註冊-->
+        
+<div class="dialogmask" id="signupDialog" style="display: none;">
+    <div class="signupbox">
+        <div class="decoratorbar"></div>
+        <span class="closeicon"></span>
+        <div class="signup">
+            <div class="dialogtitle">註冊會員帳號</div>
+            <input class="signupsignin_input" placeholder="輸入姓名" id="signupname">
+            <input class="signupsignin_input" placeholder="輸入電子郵件" id="signupemail">
+            <input class="signupsignin_input" placeholder="輸入密碼" type="password" id="signuppassword">
+            <button class="signupsignin_enter" type="submit" id="signupbutton">註冊新帳號</button>
+            <div class="remindmsg" id="signuperrornote" ></div>
+            <div class="dialog_text_haveaccount">已經有帳號了？點此登入</div>
+        </div>
+    </div>
+</div>
+<!--會員登入-->
+<div class="dialogmask" id="loginDialog" style="display: none;">
+    <div class="signinbox">
+        <div class="decoratorbar"></div>
+        <span class="closeicon_2"></span>
+        <div class="signin">
+            <div class="dialogtitle">登入會員帳號</div>
+            <input class="signupsignin_input" placeholder="輸入電子郵件" id="loginemail">
+            <input class="signupsignin_input" placeholder="輸入密碼" type="password" id="loginpassword">
+            <button class="signupsignin_enter" type="submit" id="loginbutton">登入帳號</button>
+            <div class="remindmsg" id="loginerrornote" ></div>
+            <div class="dialog_text_noaccount">還沒有帳號？點此註冊</div>
+        </div>
+    </div>
+</div>
+
+<!--表頭-->
+        <div class="navbar">
+            <div class="headline">
+                <a href = "/" class="link" >
+                <div class="left">台北一日遊</div>
+                </a>
+                <div class="right-web">
+                    <div class="item1">
+                        <div class="item1-text" id="bookingschedule">預定行程</div></div>
+                    <div class="item2">
+                        <div class="item2-text">登入/註冊</div></div>
+                </div>
+            </div>   
+        </div>
+        <hr class="hr1">    
+
+
+
+        <div class="headline_style" id="thankyou-title">行程預定已成功，您的訂單編號如下：<br><span id="order-number-text"></span></div>
+        <div class="rimindnote" id="thankyou-content">請記住此編號以利後續進行訂單查詢。</div>
+        
+
+
+
+
+    <div class="footer" id="footer">
+        <div class="copyright">COPYRIGHT © 2021 台北一日遊
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='member.js') }}"></script>    
+    <script src="{{ url_for('static', filename='booking.js') }}"></script>    
+    <script src="{{ url_for('static', filename='thankyou.js') }}"></script>    
+
+</body>
+</html>
+
