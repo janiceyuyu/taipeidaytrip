@@ -10,6 +10,14 @@ let bookingSpotNameText = document.getElementById("spotname")
 let bookingDate = document.getElementById("date")
 let bookingTime = document.getElementById("time")
 let bookingPrice = document.getElementById("cost")
+let price = ''
+let bookingAttractionId = ''
+let bookingSpotName = ''
+let bookingaddress = ''
+let bookingimageUrl = ''
+let date = ''
+let time = ''
+let displayTime = ''
 let bookingAddressText = document.getElementById("address")
 let bookingSpotImageContainer = document.getElementById("bookingpicture")
 let totalPrice = document.getElementById("totalcost")
@@ -97,26 +105,29 @@ function getbookingdata(){
         console.log(data)
         if (data.data){
         console.log(data.data.attraction)
-        let bookingimageUrl = data.data.attraction.images
+        
+        bookingAttractionId = data.data.attraction.id
+
+        bookingimageUrl = data.data.attraction.images
         //console.log(bookingimageUrl)
-        let bookingSpotName = data.data.attraction.name
+        bookingSpotName = data.data.attraction.name
         //console.log(bookingSpotName)
-        let bookingaddress = data.data.attraction.address
+        bookingaddress = data.data.attraction.address
         //console.log(bookingaddress)
-        let date = data.data.date
+        date = data.data.date
         //console.log(date)
-        let time = data.data.time
+        time = data.data.time
         if (time=="morning"){
-            time = "上午 9 點至下午 4 點"
+            displayTime = "上午 9 點至下午 4 點"
         }else if(time=="afternoon"){
-            time = "下午 3 點至晚上 9 點"
+            displayTime = "下午 3 點至晚上 9 點"
         }
         //console.log(time)
-        let price = data.data.price
+        price = data.data.price
         //console.log(price)
         bookingSpotNameText.textContent=bookingSpotName
         bookingDate.textContent = date
-        bookingTime.textContent = time
+        bookingTime.textContent = displayTime
         bookingPrice.textContent = price
         totalPrice.textContent = price
         bookingAddressText.textContent = bookingaddress

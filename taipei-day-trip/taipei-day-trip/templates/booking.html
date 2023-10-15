@@ -69,23 +69,24 @@
                 <div class="infor">
                     <div class="title">
                         <div class="taipeidaytrip">台北一日遊：</div>
-                        <div class="taipeidaytrip" id="spotname">test</div>
+                        <div class="taipeidaytrip" id="spotname"></div>
                     </div>
                     <div class="inforframe">
                         <div class="inforstyle">日期：</div>
-                        <div class="infor-textstyle" id="date">test</div>
+                        <div class="infor-textstyle" id="date"></div>
                     </div>
                     <div class="inforframe">
                         <div class="inforstyle">時間：</div>
-                        <div class="infor-textstyle" id="time">test</div>
+                        <div class="infor-textstyle" id="time"></div>
                     </div>
                     <div class="inforframe">
                         <div class="inforstyle">費用：</div>
-                        <div class="infor-textstyle" id="cost">test</div>
+                        <div class="infor-textstyle" id="cost"></div>
+                        <div class="infor-textstyle">元</div>
                     </div>
                     <div class="inforframe">
                         <div class="inforstyle">地點：</div>
-                        <div class="infor-textstyle" id="address">test</div>
+                        <div class="infor-textstyle" id="address"></div>
                     </div>
                     <div class="deleteicon"></div>
                 </div>
@@ -105,7 +106,7 @@
                 </div>
                 <div class="contactframe">
                     <div class="contactstyle">手機號碼：</div>
-                    <input class="contact_input">
+                    <input class="contact_input" id="contactphone">
                 </div>
                 <div class="rimindnote">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
             </div>
@@ -116,15 +117,18 @@
                 <div class="contactform_title">信用卡付款資訊</div>
                 <div class="contactframe">
                     <div class="contactstyle">卡片號碼：</div>
-                    <input class="contact_input" placeholder="**** **** **** ****" type="password">
+                    <div class="tpfield" id="card-number"></div>
+                    <!--<input class="contact_input" placeholder="**** **** **** ****" type="password">--> 
                 </div>
                 <div class="contactframe">
                     <div class="contactstyle">過期時間：</div>
-                    <input class="contact_input" placeholder="MM/YY">
+                    <div class="tpfield" id="card-expiration-date"></div>
+                    <!--<input class="contact_input" placeholder="MM/YY">--> 
                 </div>
                 <div class="contactframe">
                     <div class="contactstyle" >驗證密碼：</div>
-                    <input class="contact_input" placeholder="CVV">
+                    <div class="tpfield" id="card-ccv"></div>
+                    <!--<input class="contact_input" placeholder="CVV">--> 
                 </div>
 
             </div>
@@ -154,6 +158,8 @@
     <script src="{{ url_for('static', filename='attraction.js') }}"></script>
     <script src="{{ url_for('static', filename='member.js') }}"></script>    
     <script src="{{ url_for('static', filename='booking.js') }}"></script>    
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.17.0"></script>
+    <script src="{{ url_for('static', filename='tappay.js') }}"></script>    
 </body>
 </html>
 

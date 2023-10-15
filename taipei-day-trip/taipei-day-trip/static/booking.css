@@ -277,9 +277,14 @@ body{
         padding: 10px;
         border: 1px solid;
         border-color: #E8E8E8;
-
-
-
+    }
+    .tpfield {
+        border-radius: 5px;
+        width: 180px;
+        height: 18px;
+        padding: 10px;
+        border: 1px solid;
+        border-color: #E8E8E8;
     }
 
     .rimindnote{
@@ -349,7 +354,8 @@ body{
         font-size: 19px;
         font-style: normal;
         font-weight: 400;
-        line-height: 16px
+        line-height: 16px;
+        cursor: pointer;
     }
 
     .footer{
@@ -664,7 +670,14 @@ body{
     
     
         }
-    
+        .tpfield {
+            border-radius: 5px;
+            width: 180px;
+            height: 18px;
+            padding: 10px;
+            border: 1px solid;
+            border-color: #E8E8E8;
+        }
         .rimindnote{
             width: 608px;
             height: 24px;
@@ -733,7 +746,8 @@ body{
             font-size: 19px;
             font-style: normal;
             font-weight: 400;
-            line-height: 16px
+            line-height: 16px;
+            cursor: pointer;
         }
         
         .footer{
@@ -1054,7 +1068,14 @@ body{
     
     
         }
-    
+        .tpfield {
+            border-radius: 5px;
+            width: 180px;
+            height: 18px;
+            padding: 10px;
+            border: 1px solid;
+            border-color: #E8E8E8;
+        }
         .rimindnote{
             width: auto;
             height: 48px;
@@ -1119,7 +1140,8 @@ body{
             font-size: 19px;
             font-style: normal;
             font-weight: 400;
-            line-height: 16px
+            line-height: 16px;
+            cursor: pointer;
         }
        
        

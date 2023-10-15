@@ -166,19 +166,23 @@ function checklogin(config={}) {
         headers: { 'Authorization': `Bearer ` + window.localStorage.getItem("token") },
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+        // if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        // }
         return response.json();
     })
     .then(data => {
-        if (data !== null) {
+        if (data.email) {
             logout();
+            username=data.name
+        }else if (data.error && location.pathname == '/booking'){
+            location.href = "/"
+            
+        }else if (data.error && location.pathname == '/thankyou'){
+            location.href = "/"
         }
     })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+    
 }}
 
 function logout() {
@@ -193,7 +197,7 @@ function logout() {
     logout.addEventListener('click', function() {
         logout.innerHTML=""
         localStorage.clear();
-        logindialog.style.display = 'flex'
+
         let currentUrl = location.pathname
         console.log("currentUrl: ",currentUrl)
         let bookingurl="/booking"
